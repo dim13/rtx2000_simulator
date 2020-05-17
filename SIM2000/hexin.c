@@ -57,6 +57,7 @@ int convert_char(register int ascii_char)
         && ascii_char <= 'f')
     {  return( ascii_char + 10 - (int) 'a');  }
   error("invalid hex character in input file");
+  return -1;
 }
 
 #define INP (convert_char(fgetc(in_file)))

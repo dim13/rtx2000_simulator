@@ -160,7 +160,7 @@ void trace_2(int instruction, int address)
 #endif
     }
 
-void main(int argc, char *argv[])
+int main(int argc, char *argv[])
 { FILE *rom_file;
   int inst, temp_pc, stream_mode;
   int *ram_ptr;
@@ -169,7 +169,7 @@ void main(int argc, char *argv[])
   printf("\n(C) Copyright 1990, All Rights Reserved, Harris Semiconductor\n");
   if ( argc < 1 )  /* no input arguments */
     { printf("\nusage:   SIM2000  rom-file\n");
-      return;
+      return 0;
     }
 
   printf("ROM file: %s\n",argv[1]);
@@ -239,6 +239,7 @@ void main(int argc, char *argv[])
   restoremode();
 #endif
 #endif
+  return 0;
 }
 
 #if NEVER

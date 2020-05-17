@@ -68,7 +68,7 @@ void init_state()
   SOFTINT = 0;
   STREAM = FALSE;
   second_cycle = FALSE;
-  /* set_DPRSEL(0);  /* default is tiny model, data from CPR page */
+  // set_DPRSEL(0);  /* default is tiny model, data from CPR page */
   clocks = 0;
 }
 
@@ -107,12 +107,12 @@ int getch()   /* used to be long c_key() */
 void pop()
 { TOP = NEXT;
   NEXT = data_stack[dp] ;
-  dp = (--dp) & STACK_MASK;
+  dp = (dp - 1) & STACK_MASK;
 }
 
 /* data stack push */
 void push(register int data)
-{ dp = (++dp) & STACK_MASK;
+{ dp = (dp + 1) & STACK_MASK;
   data_stack[dp] = NEXT;
   NEXT = TOP;
   TOP = data;
@@ -127,12 +127,12 @@ void push(register int data)
 void rs_pop()
 { IPR = (return_stack[rp].high)  & 0x1F ;   /* don't use set_IPR; bit 4 comes from RS */
   INDEX = return_stack[rp].low _MASKED_;
-  rp = (--rp) & STACK_MASK;
+  rp = (rp - 1) & STACK_MASK;
 }
 
 /* return stack push with 2 inputs */
 void rs_push(int page, register int data)
-{ rp = (++rp) & STACK_MASK;
+{ rp = (rp + 1) & STACK_MASK;
   return_stack[rp].high = IPR ;
   return_stack[rp].low  = INDEX;
   INDEX = data ;
@@ -247,7 +247,7 @@ int fetch(int address)
     }
 }
 
-int store(int address, int data)
+void store(int address, int data)
 { register int tempa, tempb;
   if (IR & 0x1000 )
     { byte_store(address,data); }

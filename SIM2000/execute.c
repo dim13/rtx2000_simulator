@@ -58,6 +58,7 @@ int alu(int opa, int opb)
       return((opb + ~opa + CY) _MASKED_ );
     }
   error("illegal alu function in alu");
+  return -1;
 }
 
 void shift()
@@ -180,10 +181,10 @@ void shift()
 /* .MDUL/________________________________________________________________.MDNM/ */
 
 
-void bad_insn()
+void bad_insn(int ir)
 {  printf("Unsupported instruction: addr=%01X%04X  insn=%04X ",
-          CPR, PC, IR);
-  print_instruction(stdout, decode(IR), IR, CPR, PC);
+          CPR, PC, ir);
+  print_instruction(stdout, decode(ir), ir, CPR, PC);
   printf("\n");
 }
 

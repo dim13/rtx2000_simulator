@@ -33,6 +33,7 @@ int target_addr(int instruction, int address)
       return(next_addr - 0x0400);
     }
   error("case statement error in target_addr");
+  return -1;
 }
 
 /* ®MDUL¯_____________________________________________________________®MDNM¯ */
@@ -50,6 +51,7 @@ machine_op decode_branch (register int instruction)
     case 0x9800:  return(OP_NEXT);
     }
   error("illegal case in decode_branch");
+  return -1;
 }
 
 /* ®MDBO¯---------------------------------------------------®MDUL¯®MDNM¯ */
@@ -90,6 +92,7 @@ machine_op decode_alu (register int instruction)
       return(OP_DDUP_ALU);      /* 1010 cccc 11x0 xxxx */
     }
   error("illegal case in decode_alu");
+  return -1;
 }
 
 /* ®MDBO¯---------------------------------------------------®MDUL¯®MDNM¯ */
@@ -229,6 +232,7 @@ machine_op decode_gbus (register int instruction)
       return(OP_GFETCH_SWAP_ALU); /* 1011 cccc 10xg gggg */
     }
   error("illegal case in decode_gbus");
+  return -1;
 }
 
 /* ®MDBO¯---------------------------------------------------®MDUL¯®MDNM¯ */
@@ -256,6 +260,7 @@ machine_op decode_short_lit (register int instruction)
       return(OP_SHORT_LIT_SWAP_ALU); /* 1011 cccc 11xd dddd */
     }
   error("illegal case in decode_short_lit");
+  return -1;
 }
 
 /* ®MDBO¯---------------------------------------------------®MDUL¯®MDNM¯ */
@@ -380,6 +385,7 @@ machine_op decode_memory (register int instruction)
       return(OP_TUCK_STORE_WITH_ALU);  /* 111x aaa1 11xx xxxx */
     }
   error("illegal case in decode_memory");
+  return -1;
 }
 
 /* ®MDBO¯---------------------------------------------------®MDUL¯®MDNM¯ */
@@ -419,6 +425,7 @@ machine_op decode (register int instruction)
           return(decode_memory(instruction));
 
         default:  error("decode 0-7");
+		  return -1;
         }
     }
   else
@@ -426,6 +433,7 @@ machine_op decode (register int instruction)
       return (OP_CALL);
     }
   error("decode fall-through");
+  return -1;
 }
 
 /* ®MDBO¯---------------------------------------------------®MDUL¯®MDNM¯ */

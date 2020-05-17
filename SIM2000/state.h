@@ -143,7 +143,7 @@ extern int byte_fetch(int address);
 extern int gfetch(int offset);
 extern int long_fetch(int seg, int address);
 extern int long_fetch(int seg, int address);;
-extern int store(int address, int data);
+extern void store(int address, int data);
 extern int ufetch(int offset);
 extern void display_ds();
 extern void display_short_rs();
